@@ -1,13 +1,17 @@
 body {
     text-align: center;
-    background-color: #283149;
+    background-color: #171c29;
+}
+
+html {
+    overflow: hidden;
 }
 
 h1 {
-    font-size: 5rem;
+    font-size: calc(16px + 2 * ((100vw) / 30));
     color: #DBEDF3;
     font-family: "Arvo", cursive;
-    text-shadow: 3px 0 #DA0463;
+    text-shadow: 10px 10px #ac6987;
 }
 
 footer {
@@ -47,6 +51,12 @@ footer {
     margin: 10% auto;
 }
 
+.set.phone {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
 .game-over {
     background-color: red;
     opacity: 0.8;
@@ -64,20 +74,25 @@ footer {
 .drum {
     outline: none;
     border: 10px solid #404B69;
-    font-size: 5rem;
+    font-size: calc(16px + 2 * ((100vw) / 50));
     font-family: 'Arvo', cursive;
-    line-height: 2;
     font-weight: 900;
     color: #DA0463;
     text-shadow: 3px 0 #DBEDF3;
     border-radius: 15px;
     display: inline-block;
-    width: 150px;
-    height: 150px;
     text-align: center;
     margin: 10px;
     background-color: white;
     transition: 100ms;
+    padding: 5rem;
+}
+
+.drum.phone {
+    background-repeat: no-repeat;
+    width: 40%;
+    margin: 0 auto;
+    font-size: calc(16px + 1 * ((100vw) / 10));
 }
 
 .drum:active {

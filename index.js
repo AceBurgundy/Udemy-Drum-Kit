@@ -7,7 +7,8 @@ drums.forEach((drum) => {
 })
 
 
-document.addEventListener("keyup", (event) => {
+document.addEventListener("keypress", (event) => {
+    event.preventDefault();
     playDrum(event.key)
 })
 
@@ -61,15 +62,10 @@ function playDrum(key) {
     }
 }
 
+if (window.screen.availHeight > window.screen.availWidth) {
+    document.querySelector(".set").classList.add("phone")
+    document.querySelectorAll(".drum").forEach(drum => {
+        drum.classList.add("phone")
+    })
 
-
-
-
-
-// <button class="w drum">w</button>
-//         <button class="a drum">a</button>
-//         <button class="s drum">s</button>
-//         <button class="d drum">d</button>
-//         <button class="j drum">j</button>
-//         <button class="k drum">k</button>
-//         <button class="l drum">l</button>
+}
