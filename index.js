@@ -1,4 +1,7 @@
 let drums = document.querySelectorAll(".drum")
+const context = new AudioContext()
+let audioFiles = {}
+let sound = ["crash", "kick-bass", "snare", "tom-1", "tom-2", "tom-3", "tom-4"]
 
 drums.forEach((drum) => {
     drum.addEventListener("click", (event) => {
@@ -6,6 +9,23 @@ drums.forEach((drum) => {
     })
 })
 
+for (let index = 0; index < sound.length; index++) {
+
+    fetch(`sounds/${sound[index]}.mp3`)
+        .then(data => data.arrayBuffer())
+        .then(arrayBuffer => context.decodeAudioData(arrayBuffer))
+        .then(decodedAudio => {
+            audioFiles[sound[index]] = decodedAudio
+        })
+
+}
+
+function playSound(color) {
+    const play = context.createBufferSource()
+    play.buffer = audioFiles[color]
+    play.connect(context.destination)
+    play.start(context.currentTime)
+}
 
 document.addEventListener("keypress", (event) => {
     event.preventDefault();
@@ -15,50 +35,46 @@ document.addEventListener("keypress", (event) => {
 
 function playDrum(key) {
 
-    document.querySelector(`.${key}`).style.opacity = "0.5"
+    if (document.querySelector(`.${key}`) != null) {
 
-    setTimeout(() => {
-        document.querySelector(`.${key}`).style.opacity = "1"
-    }, 300);
+        document.querySelector(`.${key}`).style.opacity = "0.5"
 
-    switch (key) {
-        case 'w':
-            let crash = new Audio("sounds/crash.mp3")
-            crash.play()
-            break;
+        switch (key) {
+            case 'w':
+                playSound("crash")
+                break;
 
-        case 'a':
-            let kick = new Audio("sounds/kick-bass.mp3")
-            kick.play()
-            break;
+            case 'a':
+                playSound("kick-bass")
+                break;
 
-        case 's':
-            let snare = new Audio("sounds/snare.mp3")
-            snare.play()
-            break;
+            case 's':
+                playSound("snare")
+                break;
 
-        case 'd':
-            let tom1 = new Audio("sounds/tom-1.mp3")
-            tom1.play()
-            break;
+            case 'd':
+                playSound("tom-1")
+                break;
 
-        case 'j':
-            let tom2 = new Audio("sounds/tom-2.mp3")
-            tom2.play()
-            break;
+            case 'j':
+                playSound("tom-2")
+                break;
 
-        case 'k':
-            let tom3 = new Audio("sounds/tom-3.mp3")
-            tom3.play()
-            break;
+            case 'k':
+                playSound("tom-3")
+                break;
 
-        case 'l':
-            let tom4 = new Audio("sounds/tom-4.mp3")
-            tom4.play()
-            break;
+            case 'l':
+                playSound("tom-4")
+                break;
 
-        default:
-            break;
+            default:
+                break;
+        }
+
+        setTimeout(() => {
+            document.querySelector(`.${key}`).style.opacity = "1"
+        }, 300);
     }
 }
 
